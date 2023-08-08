@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/RCTModalHostView 2.h

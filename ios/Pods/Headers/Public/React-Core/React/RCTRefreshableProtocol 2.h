@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/RefreshControl/RCTRefreshableProtocol 2.h

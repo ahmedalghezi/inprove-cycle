@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTDiffClampAnimatedNode 2.h

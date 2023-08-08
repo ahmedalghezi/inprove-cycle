@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/ReactCommon/yoga/yoga/YGStyle 2.h

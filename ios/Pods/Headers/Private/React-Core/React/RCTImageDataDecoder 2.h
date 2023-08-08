@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/Image/RCTImageDataDecoder 2.h

@@ -1,1 +1,0 @@
-../../../../../node_modules/react-native-share/ios/ViberShare 2.h

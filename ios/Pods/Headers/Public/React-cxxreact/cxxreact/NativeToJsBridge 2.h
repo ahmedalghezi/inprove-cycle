@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/ReactCommon/cxxreact/NativeToJsBridge 2.h

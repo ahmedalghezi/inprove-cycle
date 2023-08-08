@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/RCTShadowView 2.h

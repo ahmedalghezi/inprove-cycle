@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Base/RCTInvalidating 2.h

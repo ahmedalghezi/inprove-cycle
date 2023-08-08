@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Inspector/RCTInspector 2.h

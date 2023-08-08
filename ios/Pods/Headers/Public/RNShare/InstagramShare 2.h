@@ -1,1 +1,0 @@
-../../../../../node_modules/react-native-share/ios/InstagramShare 2.h

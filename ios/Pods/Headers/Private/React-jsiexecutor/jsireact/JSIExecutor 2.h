@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/ReactCommon/jsiexecutor/jsireact/JSIExecutor 2.h

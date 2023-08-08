@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/DevSupport/RCTPackagerClient 2.h

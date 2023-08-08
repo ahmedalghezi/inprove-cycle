@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/RefreshControl/RCTRefreshControl 2.h

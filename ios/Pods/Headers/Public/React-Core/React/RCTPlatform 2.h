@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/CoreModules/RCTPlatform 2.h

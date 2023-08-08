@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode 2.h

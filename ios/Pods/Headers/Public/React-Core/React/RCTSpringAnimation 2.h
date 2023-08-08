@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation 2.h

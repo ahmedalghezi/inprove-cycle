@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/SafeAreaView/RCTSafeAreaShadowView 2.h

@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Base/RCTJavaScriptExecutor 2.h

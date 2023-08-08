@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Base/RCTJSThread 2.h

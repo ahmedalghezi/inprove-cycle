@@ -1,1 +1,0 @@
-../../../../../node_modules/@react-native-community/art/ios/Brushes/ARTLinearGradient 2.h

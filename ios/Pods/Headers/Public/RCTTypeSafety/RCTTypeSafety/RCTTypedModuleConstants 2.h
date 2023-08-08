@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/TypeSafety/RCTTypedModuleConstants 2.h

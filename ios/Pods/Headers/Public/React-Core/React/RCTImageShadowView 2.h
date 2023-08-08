@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/Image/RCTImageShadowView 2.h

@@ -1,1 +1,0 @@
-../../../../../node_modules/react-native-share/ios/FacebookStories 2.h

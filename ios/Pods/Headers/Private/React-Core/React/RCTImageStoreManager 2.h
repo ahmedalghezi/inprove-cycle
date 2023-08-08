@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/Libraries/Image/RCTImageStoreManager 2.h

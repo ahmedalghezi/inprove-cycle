@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/ReactCommon/cxxreact/ReactNativeVersion 2.h

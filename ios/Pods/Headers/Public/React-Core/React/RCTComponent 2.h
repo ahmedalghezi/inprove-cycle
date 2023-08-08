@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Views/RCTComponent 2.h

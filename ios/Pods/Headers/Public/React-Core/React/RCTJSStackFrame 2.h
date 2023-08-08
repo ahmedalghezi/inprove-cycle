@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Base/RCTJSStackFrame 2.h

@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native/React/Base/RCTBundleURLProvider 2.h
