@@ -72,8 +72,9 @@ const PasswordPrompt = ({ enableShowApp }) => {
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
           <AppTextInput
             onChangeText={setEmail}
-            secureTextEntry={true}
             placeholder={labels.enterEmailAddress}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
           <AppTextInput
             onChangeText={setPassword}
