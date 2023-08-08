@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/Libraries/Image/RCTImageEditingManager 2.h

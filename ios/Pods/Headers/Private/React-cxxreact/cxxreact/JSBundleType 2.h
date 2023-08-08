@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/ReactCommon/cxxreact/JSBundleType 2.h

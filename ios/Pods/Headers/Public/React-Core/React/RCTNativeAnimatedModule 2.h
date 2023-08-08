@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedModule 2.h

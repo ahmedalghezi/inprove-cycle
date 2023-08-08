@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-share/ios/MessengerShare 2.h

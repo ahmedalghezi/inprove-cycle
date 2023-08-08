@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/React/CoreModules/RCTAlertManager 2.h

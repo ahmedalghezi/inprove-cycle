@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/Libraries/WebSocket/RCTSRWebSocket 2.h

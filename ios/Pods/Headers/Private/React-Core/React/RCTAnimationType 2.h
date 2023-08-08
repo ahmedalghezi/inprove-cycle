@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/React/Views/RCTAnimationType 2.h

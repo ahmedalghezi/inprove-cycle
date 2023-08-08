@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/React/CoreModules/RCTI18nManager 2.h

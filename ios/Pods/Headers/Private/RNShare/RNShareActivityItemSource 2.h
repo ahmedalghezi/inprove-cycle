@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-share/ios/RNShareActivityItemSource 2.h

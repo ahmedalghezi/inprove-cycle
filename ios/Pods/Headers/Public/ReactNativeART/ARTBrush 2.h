@@ -1,0 +1,1 @@
+../../../../../node_modules/@react-native-community/art/ios/Brushes/ARTBrush 2.h

@@ -1,0 +1,1 @@
+../../../../../../node_modules/react-native/React/Base/RCTModuleData 2.h

@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-share/ios/GenericShare 2.h
