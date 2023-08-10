@@ -21,7 +21,6 @@ export default function AppWrapper() {
 
   useEffect(() => {
     checkIsLicenseAccepted()
-    checkIsDbEncrypted()
   }, [])
 
   if (isLoading) {
