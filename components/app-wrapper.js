@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getLicenseFlag, saveEncryptionFlag } from '../local-storage'
+import { openDb } from '../db'
 
 import App from './app'
 import AppLoadingView from './common/app-loading'
@@ -11,7 +12,7 @@ import PasswordPrompt from './password-prompt'
 export default function AppWrapper() {
   const [isLoading, setIsLoading] = useState(true)
   const [isLicenseAccepted, setIsLicenseAccepted] = useState(false)
-  const [isDbEncrypted, setIsDbEncrypted] = useState(true)
+  const [isDbEncrypted, setIsDbEncrypted] = useState(false)
 
   const checkIsLicenseAccepted = async () => {
     const isLicenseFlagSet = await getLicenseFlag()
@@ -19,8 +20,15 @@ export default function AppWrapper() {
     setIsLoading(false)
   }
 
+  const checkIsDbEncrypted = async () => {
+    const isEncrypted = !(await openDb())
+    if (isEncrypted) setIsDbEncrypted(true)
+    await saveEncryptionFlag(isEncrypted)
+  }
+
   useEffect(() => {
     checkIsLicenseAccepted()
+    checkIsDbEncrypted()
   }, [])
 
   if (isLoading) {
@@ -37,7 +45,7 @@ export default function AppWrapper() {
       {isDbEncrypted ? (
         <PasswordPrompt enableShowApp={() => setIsDbEncrypted(false)} />
       ) : (
-        <App restartApp={() => {return isDbEncrypted}} />
+        <App restartApp={() => checkIsDbEncrypted()} />
       )}
     </>
   )
