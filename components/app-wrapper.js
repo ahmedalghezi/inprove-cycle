@@ -12,7 +12,7 @@ import PasswordPrompt from './password-prompt'
 export default function AppWrapper() {
   const [isLoading, setIsLoading] = useState(true)
   const [isLicenseAccepted, setIsLicenseAccepted] = useState(false)
-  const [isDbEncrypted, setIsDbEncrypted] = useState(false)
+  const [isDbEncrypted, setIsDbEncrypted] = useState(true)
 
   const checkIsLicenseAccepted = async () => {
     const isLicenseFlagSet = await getLicenseFlag()

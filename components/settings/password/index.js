@@ -19,8 +19,7 @@ const PasswordSetting = ({ restartApp, navigate }) => {
   const [isChangingPassword, setIsChangingPassword] = useState(false)
   // const [isDeletingPassword, setIsDeletingPassword] = useState(false)
 
-  const changeEncryptionAndRestart = async (hash) => {
-    await changeDbEncryption(hash)
+  const restartAndNavigateHome = async () => {
     await restartApp()
     navigate('Home')
   }
@@ -33,20 +32,12 @@ const PasswordSetting = ({ restartApp, navigate }) => {
         <AppText>
           {isPasswordSet ? explainerEnabled : explainerDisabled}
         </AppText>
-
-        {!isPasswordSet && (
-          <CreatePassword
-            changeEncryptionAndRestart={changeEncryptionAndRestart}
-          />
-        )}
-
-        {isPasswordSet && (
-          <ChangePassword
-            onStartChange={() => setIsChangingPassword(true)}
-            onCancelChange={() => setIsChangingPassword(false)}
-            changeEncryptionAndRestart={changeEncryptionAndRestart}
-          />
-        )}
+        <ChangePassword
+          onStartChange={() => setIsChangingPassword(true)}
+          onCancelChange={() => setIsChangingPassword(false)}
+          restartAndNavigateHome={restartAndNavigateHome}
+        />
+        
         {/*
         {isPasswordSet && !isChangingPassword && (
           <DeletePassword

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import { SHA512 } from 'jshashes'
-import { Image } from 'react-native'
 
 import AppPage from './common/app-page'
 import AppTextInput from './common/app-text-input'
+import Segment from './common/segment'
 import Button from './common/button'
 import Header from './header'
+import ConfirmWithPassword from './settings/common/confirm-with-password'
 
 
 import { saveEncryptionFlag } from '../local-storage'
@@ -20,27 +21,12 @@ const cancelButton = { text: shared.cancel, style: 'cancel' }
 const PasswordPrompt = ({ enableShowApp }) => {
   const [eMail, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const [enteringEmail, setEnteringEmail] = useState(false)
 
   useEffect(() => {
     setIsButtonDisabled(!(eMail && password));
   }, [eMail, password]);
-
-  const unlockApp = async () => {
-    const hash = new SHA512().hex(password)
-    const connected = await openDb(hash)
-
-    if (!connected) {
-      Alert.alert(shared.incorrectPassword, shared.incorrectPasswordMessage, [
-        {
-          text: shared.tryAgain,
-          onPress: () => setPassword(null),
-        },
-      ])
-      return
-    }
-    enableShowApp()
-  }
 
   const onDeleteDataConfirmation = async () => {
     await deleteDbAndOpenNew()
@@ -65,6 +51,93 @@ const PasswordPrompt = ({ enableShowApp }) => {
     ])
   }
 
+  const forgotPassword = () => {
+    setEnteringEmail(true)
+  }
+
+  const handleError = () => {
+    Alert.alert(shared.errorTitle, shared.errorMessage, [
+      {
+        text: shared.tryAgain,
+        onPress: () => {
+          setEmail(null)
+        },
+      },
+    ])
+  }
+
+  const requestPasswordChange = () => {
+    Alert.alert(shared.successTitle, shared.checkEmail, [
+      {
+        text: shared.ok,
+        onPress: () => {
+          setEnteringEmail(false)
+        },
+      },
+    ])
+  }
+
+  const cancelConfirmationWithPassword = () => {
+    setEmail(null)
+    setEnteringEmail(false)
+  }
+
+  const authorizeLogin = async () => {
+    const loginUrl = 'https://inprove-sport.info/reg/login_server_5';
+
+    const data = {
+      email: eMail,
+      password: password,
+    };
+
+    try {
+      const response = await fetch(loginUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => 
+        response.json())
+      .then(json => {
+        if (json.res === 'yes') {
+          Alert.alert(shared.incorrectLogin, shared.incorrectLoginMessage, [
+            {
+              text: shared.tryAgain,
+              onPress: () => {
+                setPassword(null)
+                setEmail(null)
+              },
+            },
+          ])
+          return
+        }
+        enableShowApp()
+      })
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  if (enteringEmail) {
+    return (
+      <>
+        <Header isStatic />
+        <AppPage contentContainerStyle={styles.contentContainer}>
+          <Segment title='Request Changing Your Password' last>
+            <ConfirmWithPassword
+              onSuccess={requestPasswordChange}
+              onCancel={cancelConfirmationWithPassword}
+              onError={handleError}
+            />
+          </Segment>
+        </AppPage>
+      </>
+    )
+  }
+
   return (
     <>
       <Header isStatic />
@@ -82,11 +155,11 @@ const PasswordPrompt = ({ enableShowApp }) => {
             placeholder={labels.enterPassword}
           />
           <View style={styles.containerButtons}>
-            <Button onPress={onConfirmDeletion}>{labels.forgotPassword}</Button>
+            <Button onPress={forgotPassword}>{labels.forgotPassword}</Button>
             <Button
               disabled={isButtonDisabled}
               isCTA={!isButtonDisabled}
-              onPress={unlockApp}
+              onPress={authorizeLogin}
             >
               {labels.title}
             </Button>
@@ -111,9 +184,6 @@ const styles = StyleSheet.create({
     ...Containers.rowContainer,
     justifyContent: 'space-around',
   },
-  logo: {
-    alignSelf: 'center',
-  }
 })
 
 export default PasswordPrompt

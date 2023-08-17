@@ -10,19 +10,25 @@ import ConfirmWithPassword from '../common/confirm-with-password'
 import settings from '../../../i18n/en/settings'
 
 const ChangePassword = ({
-  changeEncryptionAndRestart,
+  restartAndNavigateHome,
   onStartChange,
   onCancelChange,
 }) => {
-  const [currentPassword, setCurrentPassword] = useState(null)
+  const [currentEmail, setCurrentEmail] = useState(null)
   const [enteringCurrentPassword, setEnteringCurrentPassword] = useState(false)
   const [enteringNewPassword, setEnteringNewPassword] = useState(false)
+  const [enteringEmail, setEnteringEmail] = useState(false)
 
   const startChangingPassword = () => {
     showBackUpReminder(
-      startEnteringCurrentPassword,
+      startEnteringEmail,
       cancelConfirmationWithPassword
     )
+  }
+
+  const startEnteringEmail = () => {
+    setEnteringEmail(true)
+    onStartChange()
   }
 
   const startEnteringCurrentPassword = () => {
@@ -37,19 +43,24 @@ const ChangePassword = ({
   }
 
   const cancelConfirmationWithPassword = () => {
-    setCurrentPassword(null)
+    setCurrentEmail(null)
     setEnteringNewPassword(false)
-    setEnteringCurrentPassword(false)
+    setEnteringEmail(false)
     onCancelChange()
   }
 
-  const labels = settings.passwordSettings
-  const isPasswordSet = currentPassword !== null
+  const requestPasswordChange = () => {
+    restartAndNavigateHome()
+    console.log("Successfully requested password change.")
+  }
 
-  if (enteringCurrentPassword) {
+  const labels = settings.passwordSettings
+  const isEmailSet = currentEmail !== null
+
+  if (enteringEmail) {
     return (
       <ConfirmWithPassword
-        onSuccess={startEnteringNewPassword}
+        onSuccess={requestPasswordChange}
         onCancel={cancelConfirmationWithPassword}
       />
     )
@@ -64,7 +75,7 @@ const ChangePassword = ({
   }
 
   return (
-    <Button disabled={isPasswordSet} isCTA onPress={startChangingPassword}>
+    <Button disabled={isEmailSet} isCTA onPress={startChangingPassword}>
       {labels.changePassword}
     </Button>
   )

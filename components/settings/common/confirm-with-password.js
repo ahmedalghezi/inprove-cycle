@@ -10,50 +10,57 @@ import { openDb } from '../../../db'
 import { Containers } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
+import { json } from 'stream/consumers'
 
-const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
-  const [password, setPassword] = useState(null)
+const ConfirmWithPassword = ({ onSuccess, onCancel, onError }) => {
+  const [email, setEmail] = useState(null)
 
-  const checkPassword = async () => {
-    const hash = new SHA512().hex(password)
+  const handleChangePassword = async () => {
+    const forgotPasswordUrl = 'https://inprove-sport.info/reg/forgetPassword';
+
+    const data = {
+      email: email,
+    };
+
     try {
-      await openDb(hash)
-      onSuccess()
-    } catch (err) {
-      onIncorrectPassword()
-    }
-  }
+      const response = await fetch(forgotPasswordUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+        if (response.ok) {
+          onSuccess()
+        } else {
+          onError()
+        }
+      })
 
-  const onIncorrectPassword = () => {
-    Alert.alert(shared.incorrectPassword, shared.incorrectPasswordMessage, [
-      {
-        text: shared.cancel,
-        onPress: onCancel,
-      },
-      {
-        text: shared.tryAgain,
-        onPress: () => setPassword(null),
-      },
-    ])
-  }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const labels = settings.passwordSettings
-  const isPassword = password !== null
+  const isEmail = email !== null
 
   return (
     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
       <AppTextInput
-        onChangeText={setPassword}
-        placeholder={labels.enterCurrent}
-        value={password}
-        secureTextEntry
+        onChangeText={setEmail}
+        placeholder={labels.enterEmail}
+        value={email}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <View style={styles.container}>
         <Button onPress={onCancel}>{shared.cancel}</Button>
         <Button
-          disabled={!isPassword}
-          isCTA={isPassword}
-          onPress={checkPassword}
+          disabled={!isEmail}
+          isCTA={isEmail}
+          onPress={handleChangePassword}
         >
           {shared.confirmToProceed}
         </Button>
