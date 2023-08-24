@@ -4,15 +4,35 @@ export default {
   export: {
     errors: {
       noData: 'There is no data to export',
-      couldNotConvert: 'Could not convert data to CSV',
-      problemSharing: 'There was a problem sharing the data export file',
+      problemSendingData: 'Could not send the data to inprov',
+      problemSharing: 'There was a problem sharing the data export',
+      notSignedIn: 'User not signed in',
+    },
+    success:{
+        message: 'Data succesfully sent to inprov',
     },
     title: 'My drip. data export',
     subject: 'My drip. data export',
-    button: 'Export data',
+    //button: 'Export Data',
+    button: 'Send data ', // New main export button
+   // manual: 'Export Data manually',
     segmentExplainer:
-      'Export data in CSV format for backup or so you can use it elsewhere',
+      'Export data to inprov database'
+      //'Export data in CSV format for backup or so you can use it elsewhere',
   },
+  exportAutomatic: {
+      errors: {
+        noData: 'There is no data to export',
+        couldNotConvert: 'Could not convert data to CSV',
+        problemSharing: 'There was a problem sharing the data export',
+      },
+      title: 'My drip. data export',
+      subject: 'My drip. data export',
+      //button: 'Export Data',
+      button: 'Send Data automatically', // New main export button
+      segmentExplainer:
+        'Export data to inprov database'
+    },
   deleteSegment: {
     title: 'Delete app data',
     explainer: 'Delete app data from this phone',

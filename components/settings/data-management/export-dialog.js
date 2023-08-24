@@ -6,6 +6,8 @@ import alertError from '../common/alert-error'
 import settings from '../../../i18n/en/settings'
 import { EXPORT_FILE_NAME } from './constants'
 import RNFS from 'react-native-fs'
+import axios from 'axios';
+import { showToast } from '../../helpers/general'
 
 export default async function exportData() {
   let data
@@ -14,30 +16,37 @@ export default async function exportData() {
 
   if (!cycleDaysByDate.length) return alertError(labels.errors.noData)
 
-  try {
-    data = getDataAsCsvDataUri(cycleDaysByDate)
-    if (!data) {
-      return alertError(labels.errors.noData)
-    }
-  } catch (err) {
-    console.error(err)
-    return alertError(labels.errors.couldNotConvert)
-  }
+  const jsonData = JSON.stringify(cycleDaysByDate);
 
-  try {
-    const path = `${RNFS.DocumentDirectoryPath}/${EXPORT_FILE_NAME}`
-    await RNFS.writeFile(path, data)
+    console.log(jsonData)
+    try {
+    const { errors, success } = settings.export
+      const response = await axios.post('https://inprove-sport.info/csv/cycle/post_data', jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    await Share.open({
-      title: labels.title,
-      url: `file://${path}`,
-      subject: labels.subject,
-      type: 'text/csv',
-      showAppsToView: true,
-      failOnCancel: false,
-    })
-  } catch (err) {
-    console.error(err)
-    return alertError(labels.errors.problemSharing)
-  }
+        if (response.status === 200) {
+          const responseData = response.data;
+          if (responseData.res === "ok") {
+            console.log("Data exported successfully",responseData.res);
+                showToast(success.message)
+          } else if (responseData.res === "no") {
+            console.log("Not signed in");
+            showToast(errors.notSignedIn)
+          } else {
+            console.log("Unexpected response:", responseData);
+            return alertError(labels.errors.problemSendingData);
+          }
+        } else {
+          console.log('Export failed with status:', response.status);
+          return alertError(labels.errors.problemSendingData)
+        }
+      } catch (error) {
+        console.error('An error occurred during export:', error);
+        return alertError(labels.errors.problemSendingData)
+
+      }
+
 }
