@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 //import { Checkbox } from "@progress/kendo-react-inputs";
-import CheckBox from '@react-native-community/checkbox';
+//import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'expo-checkbox';
 import { View } from 'react-native';
 import AppLoadingView from '../../common/app-loading'
 import AppPage from '../../common/app-page'
@@ -40,7 +41,7 @@ const DataManagement = () => {
     <AppPage>
       <Segment title={labels.export.button}>
         <AppText>{labels.export.segmentExplainer}</AppText>
-        <Button isCTA onPress={startExport} >
+        <Button isCTA={!AutomaticExportCheckBox} onPress={startExport} disabled={AutomaticExportCheckBox}>
           {labels.export.button}
         </Button>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -50,7 +51,7 @@ const DataManagement = () => {
                     onValueChange={(newValue) => setAutomaticExportCheckBox(newValue)}
                      style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
                               marginBottom: -20}}
-                    />
+        />
         <Button  onPress={sendAutomaticExport} disabled={!AutomaticExportCheckBox}>
            {labels.exportAutomatic.button}
         </Button>
