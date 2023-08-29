@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
-import { SHA512 } from 'jshashes'
+import axios from 'axios';
 
 import AppPage from './common/app-page'
 import AppTextInput from './common/app-text-input'
@@ -19,8 +19,8 @@ import { Containers, Spacing } from '../styles'
 const cancelButton = { text: shared.cancel, style: 'cancel' }
 
 const PasswordPrompt = ({ enableShowApp }) => {
-  const [eMail, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+  const [eMail, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const [enteringEmail, setEnteringEmail] = useState(false)
 
@@ -91,33 +91,35 @@ const PasswordPrompt = ({ enableShowApp }) => {
     };
 
     try {
-      const response = await fetch(loginUrl, {
-        method: 'POST',
+      const response = await axios.post(loginUrl, JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response => 
-        response.json())
-      .then(json => {
-        if (json.res === 'yes') {
+        }
+      });
+      
+      if (response.status === 200) {
+        if (response.data.res === 'yes') {
+          enableShowApp()
+        } else if (response.data.res === 'no') {
           Alert.alert(shared.incorrectLogin, shared.incorrectLoginMessage, [
             {
               text: shared.tryAgain,
               onPress: () => {
-                setPassword(null)
-                setEmail(null)
+                setPassword('')
+                setEmail('')
               },
             },
           ])
-          return
+        } else {
+          console.log(`Unexpected response: ${response.data}`)
         }
-        enableShowApp()
-      })
+
+      } else {
+        console.log(`Login request failed with status ${response.status}`)
+      }
 
     } catch (error) {
-      console.error('Error:', error);
+      console.error(`Error occured: ${error}`);
     }
   };
 
