@@ -2,14 +2,14 @@ export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
 
 export const bleeding = {
-  labels: ['spotting', 'light', 'medium', 'heavy'],
+  labels: ['Keine','spotting', 'Leicht', 'Mittel', 'Stark'],
   heaviness: {
     header: "Heaviness",
-    explainer: "How heavy is the bleeding?",
+    explainer: "Wie stark ist deine Blutung / Periode heute?",
   },
   exclude: {
     header: "Exclude",
-    explainer: "You can exclude this value if it's not menstrual bleeding"
+    explainer: ""
   }
 }
 
@@ -84,32 +84,41 @@ export const contraceptives = {
 
 export const pain = {
   categories: {
-    cramps: 'cramps',
-    ovulationPain: 'ovulation pain',
-    headache: 'headache',
-    backache: 'backache',
-    nausea: 'nausea',
-    tenderBreasts: 'tender breasts',
-    migraine: 'migraine',
-    other: 'other'
+    abdominalPain: 'unterleibschmerzen',
+    nausea: 'übelkeit',
+    backache: 'rückenschmerzen',
+    bloating: 'blähungen',
+    constipation: 'verstopfung',
+    diarrhea: 'durchfall',
+    hungerCravings: 'hunger-cravings',
+    sleepProblems: 'schlafprobleme',
+    breathingProblems: 'atemprobleme',
+    headache: 'kopfschmerzen',
+    badSkin: 'schlechteHaut',
+    dizziness: 'schwindel',
+    concentrationProblems: 'konzentrationsprobleme',
+    other: 'andere',
   },
-  explainer: 'How did your body feel today?'
+  explainer: 'Was für Symptome hattest du heute?'
 }
 
 export const mood = {
   categories: {
-    happy: 'happy',
-    sad: 'sad',
-    stressed: 'stressed',
-    balanced: 'balanced',
-    fine: 'fine',
-    anxious: 'anxious',
-    energetic: 'energetic',
-    fatigue: 'fatigue',
-    angry: 'angry',
-    other: 'other'
+    happy: 'glücklich',
+    sad: 'traurig',
+    stressed: 'gestresst',
+    balanced: 'ausgeglichen',
+    anxious: 'ängstlich',
+    energetic: 'energiegeladen',
+    fatigue: 'müde',
+    irritated: 'gereizt',
+    angry: 'wütend',
+    driveless: 'antriebslos',
+    motivated: 'motiviert',
+    emotional: 'emotional',
+    other: 'anderes',
   },
-  explainer: 'How did you feel today?'
+  explainer: 'Wie hast du dich heute gefühlt?'
 }
 
 export const temperature = {
@@ -120,24 +129,24 @@ export const temperature = {
   saveAnyway: 'Save anyway',
   temperature: {
     header: "Temperature",
-    explainer: 'Take your temperature right after waking up, before getting out of bed'
+    explainer: 'Bitte messe deine Temperatur direkt nach dem Aufwachen und dokumentiere sie hier'
   },
-  time: "Time",
+  time: "Uhrzeit",
   note: {
     header: "Note",
-    explainer: 'Is there anything that could have influenced this value, such as bad sleep or alcohol consumption?'
+    explainer: 'Gibt es irgendwas, was diesen Wert beeinflusst haben könnte (z.B schlecht geschlafen, Alkoholkonsum, Infektion etc.)? '
   },
   exclude: {
     header: "Exclude",
-    explainer: "You can exclude this value if you don't want to use it for fertility detection"
+    explainer: ""
   }
 }
 
-export const noteExplainer = "Anything you want to add for the day?"
+export const noteExplainer = "Hier ist ein Fenster für dich, wo du uns alles mitteilen kannst, was deine Werte beeinflusst haben könnte am heutigen Tag (z.B. Erkrankung, Verletzung, Ereignisse, Schlaf etc.)"
 
 export const general = {
   cycleDayNumber: "Cycle day ",
-  today: "Today"
+  today: "Heute"
 }
 
 export const sharedDialogs = {

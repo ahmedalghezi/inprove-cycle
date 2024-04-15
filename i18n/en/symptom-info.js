@@ -20,18 +20,7 @@ Please find more info on the sympto-thermal method in ${links.wiki.url}.`,
 export default {
   bleeding: {
     title: `Tracking menstrual bleeding`,
-    text: `Tracking menstrual bleeding allows you to know the beginning and the end of a menstrual cycle.
-
-After tracking at least 3 menstrual cycles, drip. will give you an overview of
-· how long your cycles last on average (in "stats"),
-· whether the length of your cycles varied significantly (in "stats" and in bleeding predictions)
-· and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar").
-
-The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and prediction for the start of next cycles.
-
-Excluding bleeding values is for tracking bleeding when it's not marking the start of a new cycle or the continuation of menstrual bleeding the day(s) before, e.g. bleeding caused by ovulation or a miscarriage.
-
-${generalInfo.nfpTfyReminder}`,
+    text: `Was ist „Spotting“? Zwischenblutungen haben nichts mit der normalen Menstruationsblutung zu tun. Sie treten unabhängig von der monatlichen Periode auf.`,
   },
   cervix: {
     title: `Tracking your cervix`,
@@ -123,23 +112,8 @@ ${generalInfo.curiousNfp}`,
   },
   temperature: {
     title: 'Tracking body basal temperature',
-    text: `One of the body signs you need to track for knowing your fertility status is your body basal temperature. The body temperature changes over the course of a menstrual cycle, it rises after ovulation.
-
-By default the secondary symptom is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings".
-
-· What is body basal temperature?
-It's your temperature after lying still for at least 6 hours. For many, this is when they are waking up in the morning after sleeping at least 6 hours and before getting up.
-
-· Which thermometer to use?
-The thermometer must indicate 2 decimal places.
-
-· How to measure?
-You can measure rectally, vaginally or orally. If you chose rectal or vaginal measurement, you need to measure for at least 3 minutes. If you chose oral measurement, you should measure for at least 5 minutes. Pick one way and stick to it.
-
-${generalInfo.chartNfp}
-
-${generalInfo.excludeExplainer}
-
-${generalInfo.nfpTfyReminder}`,
+    text: `Am genausten ist deine Temperaturmessung, wenn du folgende Punkte beachtest: 
+  -  Messe direkt nach dem Aufwachen
+  -  Die Nacht davor durchschlafen`,
   },
 }

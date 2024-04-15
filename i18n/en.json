@@ -1,33 +1,33 @@
 {
   "bottomMenu": {
-    "calendar": "Calendar",
-    "chart": "Chart",
-    "stats": "Stats"
+    "calendar": "Kalender",
+    "chart": "Diagramm",
+    "stats": "Statistik"
   },
   "chart": {
     "tutorial": "You can swipe the chart to view more dates."
   },
   "cycleDay": {
     "symptomBox": {
-      "bleeding": "Bleeding",
-      "temperature": "Temperature",
+      "bleeding": "Blutung/Periode",
+      "temperature": "Temperatur",
       "mucus": "Cervical Mucus",
       "cervix": "Cervix",
-      "note": "Note",
+      "note": "Notizen",
       "desire": "Desire",
       "sex": "Sex",
-      "pain": "Pain",
-      "mood": "Mood"
+      "pain": "Symptome",
+      "mood": "Stimmung"
     }
   },
   "labels": {
     "bleedingPrediction": {
-      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip. will make predictions for the next ones."
+      "noPrediction": "Sobald Sie 3 Menstruationszyklen verfolgt haben, tropfen Sie. werde vorhersagen für die nächsten machen."
     },
     "home": {
-      "cycleDay": " day of your cycle",
-      "cyclePhase": " cycle phase - ",
-      "addDataForToday": "add data for today"
+      "cycleDay": " tag Ihres Zyklus",
+      "cyclePhase": " zyklusphase - ",
+      "addDataForToday": "Fügen Sie Daten für heute hinzu"
     },
     "shared": {
       "cancel": "Cancel",

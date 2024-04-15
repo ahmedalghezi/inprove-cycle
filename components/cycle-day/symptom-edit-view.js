@@ -38,13 +38,13 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
     setData(parsedData)
   }
 
-  const onExcludeToggle = () => {
+ /* const onExcludeToggle = () => {
     const parsedData = getParsedData()
 
     Object.assign(parsedData, { exclude: !parsedData.exclude })
 
     setData(parsedData)
-  }
+  }*/
 
   const onRemove = () => {
     save[symptom](data, date, true)
@@ -168,15 +168,6 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
               </Segment>
             )
           })}
-        {shouldShow(symptomConfig.excludeText) && (
-          <Segment style={styles.segmentBorder}>
-            <AppSwitch
-              onToggle={onExcludeToggle}
-              text={symtomPage[symptom].excludeText}
-              value={data.exclude}
-            />
-          </Segment>
-        )}
         {shouldShow(symptomConfig.note) && (
           <Segment style={styles.segmentBorder}>
             <AppText>{symtomPage[symptom].note}</AppText>

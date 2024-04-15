@@ -5,7 +5,7 @@ export const home = {
 
 export const shared = {
   cancel: 'Cancel',
-  save: 'Save',
+  save: 'Speichern',
   dataSaved: 'Symptom data was saved',
   dataDeleted: 'Symptom data was deleted',
   errorTitle: 'Error',
@@ -16,6 +16,7 @@ export const shared = {
   incorrectPasswordMessage: 'That password is incorrect.',
   incorrectLogin: 'Login failed',
   incorrectLoginMessage: 'The login credentials are incorrect.',
+  serverError: '',
   checkEmail: 'Check your email for further instructions.',
   tryAgain: 'Try again',
   ok: 'OK',
@@ -26,8 +27,8 @@ export const shared = {
   noTemperatureWarning: "You haven't entered any temperature data yet.",
   noDataButtonText: 'Start entering data now',
   enter: 'Enter',
-  remove: 'Remove',
-  learnMore: 'Learn more',
+  remove: 'Entfernen',
+  learnMore: 'Lerne mehr',
 }
 
 export const stats = {
@@ -54,9 +55,9 @@ export const bleedingPrediction = {
 }
 
 export const passwordPrompt = {
-  title: 'Unlock app',
-  enterEmailAddress: 'Enter e-mail address here',
-  enterPassword: 'Enter password here',
+  title: 'Anmelden',
+  enterEmailAddress: 'Email',
+  enterPassword: 'Passwort',
   deleteDatabaseExplainer:
     "If you've forgotten your password, unfortunately, there is nothing we can do to recover your data, because it is encrypted with the password only you know. You can, however, delete all your encrypted data and start fresh. Once all data has been erased, you can set a new password in the settings, if you like.",
   forgotPassword: 'Forgot your password?',
@@ -65,6 +66,7 @@ export const passwordPrompt = {
   areYouSureTitle: 'Are you sure?',
   areYouSure:
     'Are you absolutely sure you want to permanently delete all your data?',
+  reallyDeleteData: 'Yes, I am sure',
   reallyDeleteData: 'Yes, I am sure',
 }
 

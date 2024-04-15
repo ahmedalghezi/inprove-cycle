@@ -13,7 +13,7 @@ export const CHART_COLUMN_WIDTH = 32
 export const CHART_COLUMN_MIDDLE = CHART_COLUMN_WIDTH / 2
 export const CHART_DOT_RADIUS = scale(6)
 export const CHART_GRID_LINE_HORIZONTAL_WIDTH =
-  PixelRatio.roundToNearestPixel(0.3)
+PixelRatio.roundToNearestPixel(0.3)
 export const CHART_ICON_SIZE = scale(20)
 export const CHART_STROKE_WIDTH = scale(3)
 export const CHART_SYMPTOM_HEIGHT_RATIO = scale(0.08)

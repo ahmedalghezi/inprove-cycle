@@ -31,6 +31,7 @@ export default async function exportData() {
           const responseData = response.data;
           if (responseData.res === "ok") {
             console.log("Data exported successfully",responseData.res);
+             console.log(jsonData)
                 showToast(success.message)
           } else if (responseData.res === "no") {
             console.log("Not signed in");

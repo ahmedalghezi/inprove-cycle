@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 //import { Checkbox } from "@progress/kendo-react-inputs";
 //import CheckBox from '@react-native-community/checkbox';
 import CheckBox from 'expo-checkbox';
-import { View } from 'react-native';
+import { View, AsyncStorage  } from 'react-native';
 import AppLoadingView from '../../common/app-loading'
 import AppPage from '../../common/app-page'
 import AppText from '../../common/app-text'
@@ -23,6 +23,39 @@ const DataManagement = () => {
   const [AutomaticExportCheckBox, setAutomaticExportCheckBox] = useState(false)
 
 
+   useEffect(() => {
+     // Load checkbox state from AsyncStorage on component mount
+     const loadState = async () => {
+       try {
+         const storedState = await AsyncStorage.getItem('AutomaticExportCheckBox');
+         if (storedState !== null) {
+           setAutomaticExportCheckBox(JSON.parse(storedState));
+           console.log('Checkbox state loaded:', JSON.parse(storedState));
+         }
+       } catch (error) {
+         console.error('Error loading checkbox state:', error);
+       }
+     };
+
+     loadState();
+   }, []);
+
+
+      useEffect(() => {
+        saveState();
+        if (AutomaticExportCheckBox) {
+          sendAutomaticExport();
+        }
+      }, [AutomaticExportCheckBox]);
+
+ const saveState = async () => {
+   try {
+     await AsyncStorage.setItem('AutomaticExportCheckBox', JSON.stringify(AutomaticExportCheckBox));
+     console.log('Checkbox state saved:', AutomaticExportCheckBox);
+   } catch (error) {
+     console.error('Error saving checkbox state:', error);
+   }
+ };
 
 
   const startExport = () => {

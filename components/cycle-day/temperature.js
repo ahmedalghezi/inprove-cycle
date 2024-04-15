@@ -38,7 +38,7 @@ const Temperature = ({ data, date, save }) => {
   function onChangeTemperature(value) {
     const formattedValue = value.replace(',', '.').trim()
     if (!Number(formattedValue) && value !== '') return false
-    setTemperature(formattedValue)
+    setTemperature(formattedValue.toString())
   }
 
   function onShowTimePicker() {
@@ -94,7 +94,7 @@ const Temperature = ({ data, date, save }) => {
           onConfirm={setTime}
           onCancel={() => setIsTimePickerVisible(false)}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          headerTextIOS={t('labels.shared.dateTimePickerTitle')}
+          headerTextIOS={t('shared.dateTimePickerTitle')}
         />
       </Segment>
     </React.Fragment>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, StyleSheet, View, Text } from 'react-native'
 import axios from 'axios';
 
 import AppPage from './common/app-page'
@@ -24,9 +24,12 @@ const PasswordPrompt = ({ enableShowApp }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const [enteringEmail, setEnteringEmail] = useState(false)
 
+
   useEffect(() => {
     setIsButtonDisabled(!(eMail && password));
   }, [eMail, password]);
+
+
 
   const onDeleteDataConfirmation = async () => {
     await deleteDbAndOpenNew()
@@ -49,10 +52,6 @@ const PasswordPrompt = ({ enableShowApp }) => {
       cancelButton,
       { text: labels.deleteData, onPress: onDeleteData },
     ])
-  }
-
-  const forgotPassword = () => {
-    setEnteringEmail(true)
   }
 
   const handleError = () => {
@@ -83,7 +82,7 @@ const PasswordPrompt = ({ enableShowApp }) => {
   }
 
   const authorizeLogin = async () => {
-    const loginUrl = 'https://inprove-sport.info/reg/login_server_5';
+    const loginUrl = 'https://inprove-sport.info/reg/login';
 
     const data = {
       email: eMail,
@@ -96,11 +95,11 @@ const PasswordPrompt = ({ enableShowApp }) => {
           'Content-Type': 'application/json',
         }
       });
-      
+
       if (response.status === 200) {
-        if (response.data.res === 'yes') {
+        if (response.data.res === 'ok') {
           enableShowApp()
-        } else if (response.data.res === 'no') {
+        } else if (response.data.res === 'wrong') {
           Alert.alert(shared.incorrectLogin, shared.incorrectLoginMessage, [
             {
               text: shared.tryAgain,
@@ -110,8 +109,18 @@ const PasswordPrompt = ({ enableShowApp }) => {
               },
             },
           ])
+        } else if (response.data.res === 'error') {
+                  Alert.alert(shared.serverErrorTitle, shared.serverErrorMessage, [
+                    {
+                      text: shared.tryAgain,
+                      onPress: () => {
+                        setPassword('')
+                        setEmail('')
+                      },
+                    },
+                  ])
         } else {
-          console.log(`Unexpected response: ${response.data}`)
+          console.log(`Unexpected response: ${response.data.res}`)
         }
 
       } else {
@@ -142,32 +151,31 @@ const PasswordPrompt = ({ enableShowApp }) => {
 
   return (
     <>
-      <Header isStatic />
-      <AppPage contentContainerStyle={styles.contentContainer}>
-        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
-          <AppTextInput
-            onChangeText={setEmail}
-            placeholder={labels.enterEmailAddress}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-          <AppTextInput
-            onChangeText={setPassword}
-            secureTextEntry={true}
-            placeholder={labels.enterPassword}
-          />
-          <View style={styles.containerButtons}>
-            <Button onPress={forgotPassword}>{labels.forgotPassword}</Button>
-            <Button
-              disabled={isButtonDisabled}
-              isCTA={!isButtonDisabled}
-              onPress={authorizeLogin}
-            >
-              {labels.title}
-            </Button>
-          </View>
-        </KeyboardAvoidingView>
-      </AppPage>
+       <Header isStatic />
+            <AppPage contentContainerStyle={styles.contentContainer}>
+                <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
+                  <AppTextInput
+                    onChangeText={setEmail}
+                    placeholder={labels.enterEmailAddress}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                  <AppTextInput
+                    onChangeText={setPassword}
+                    secureTextEntry={true}
+                    placeholder={labels.enterPassword}
+                  />
+                  <View style={styles.containerButtons}>
+                    <Button
+                      disabled={isButtonDisabled}
+                      isCTA={!isButtonDisabled}
+                      onPress={authorizeLogin}
+                    >
+                      {labels.title}
+                    </Button>
+                  </View>
+                </KeyboardAvoidingView>
+            </AppPage>
     </>
   )
 }
