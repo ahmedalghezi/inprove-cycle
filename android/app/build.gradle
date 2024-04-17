@@ -1,8 +1,9 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+/*
 
-/**
+*
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
  * These basically call `react-native bundle` with the correct arguments during the Android build
@@ -10,75 +11,74 @@ import com.android.build.OutputFile
  * bundle directly from the development server. Below you can see all the possible configurations
  * and their defaults. If you decide to add a configuration block, make sure to add it before the
  * `apply from: "../../node_modules/react-native/react.gradle"` line.
- *
- * project.ext.react = [
- *   // the name of the generated asset file containing your JS bundle
- *   bundleAssetName: "index.android.bundle",
- *
- *   // the entry file for bundle generation. If none specified and
- *   // "index.android.js" exists, it will be used. Otherwise "index.js" is
- *   // default. Can be overridden with ENTRY_FILE environment variable.
- *   entryFile: "index.android.js",
- *
- *   // https://reactnative.dev/docs/performance#enable-the-ram-format
- *   bundleCommand: "ram-bundle",
- *
- *   // whether to bundle JS and assets in debug mode
- *   bundleInDebug: false,
- *
- *   // whether to bundle JS and assets in release mode
- *   bundleInRelease: true,
- *
- *   // whether to bundle JS and assets in another build variant (if configured).
- *   // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
- *   // The configuration property can be in the following formats
- *   //         'bundleIn${productFlavor}${buildType}'
- *   //         'bundleIn${buildType}'
- *   // bundleInFreeDebug: true,
- *   // bundleInPaidRelease: true,
- *   // bundleInBeta: true,
- *
- *   // whether to disable dev mode in custom build variants (by default only disabled in release)
- *   // for example: to disable dev mode in the staging build type (if configured)
- *   devDisabledInStaging: true,
- *   // The configuration property can be in the following formats
- *   //         'devDisabledIn${productFlavor}${buildType}'
- *   //         'devDisabledIn${buildType}'
- *
- *   // the root of your project, i.e. where "package.json" lives
- *   root: "../../",
- *
- *   // where to put the JS bundle asset in debug mode
- *   jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
- *
- *   // where to put the JS bundle asset in release mode
- *   jsBundleDirRelease: "$buildDir/intermediates/assets/release",
- *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
- *   // require('./image.png')), in debug mode
- *   resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
- *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
- *   // require('./image.png')), in release mode
- *   resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
- *
- *   // by default the gradle tasks are skipped if none of the JS files or assets change; this means
- *   // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
- *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
- *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
- *   // for example, you might want to remove it from here.
- *   inputExcludes: ["android/**", "ios/**"],
- *
- *   // override which node gets called and with what additional arguments
- *   nodeExecutableAndArgs: ["node"],
- *
- *   // supply additional arguments to the packager
- *   extraPackagerArgs: []
- * ]
- */
+ **/
+  project.ext.react = [
+   // the name of the generated asset file containing your JS bundle
+  bundleAssetName: "index.android.bundle",
+
+    // the entry file for bundle generation. If none specified and
+   // "index.android.js" exists, it will be used. Otherwise "index.js" is
+    // default. Can be overridden with ENTRY_FILE environment variable.
+    entryFile: "index.android.js",
+
+    // https://reactnative.dev/docs/performance#enable-the-ram-format
+   bundleCommand: "ram-bundle",
+
+    // whether to bundle JS and assets in debug mode
+    bundleInDebug: false,
+
+    // whether to bundle JS and assets in release mode
+    bundleInRelease: true,
+
+    // whether to bundle JS and assets in another build variant (if configured).
+    // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
+    // The configuration property can be in the following formats
+    //         'bundleIn${productFlavor}${buildType}'
+    //         'bundleIn${buildType}'
+    // bundleInFreeDebug: true,
+    // bundleInPaidRelease: true,
+   // bundleInBeta: true,
+
+    // whether to disable dev mode in custom build variants (by default only disabled in release)
+    // for example: to disable dev mode in the staging build type (if configured)
+   devDisabledInStaging: true,
+    // The configuration property can be in the following formats
+    //         'devDisabledIn${productFlavor}${buildType}'
+    //         'devDisabledIn${buildType}'
+
+    // the root of your project, i.e. where "package.json" lives
+    root: "../../",
+
+    // where to put the JS bundle asset in debug mode
+    jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
+
+    // where to put the JS bundle asset in release mode
+    jsBundleDirRelease: "$buildDir/intermediates/assets/release",
+    // where to put drawable resources / React Native assets, e.g. the ones you use via
+    // require('./image.png')), in debug mode
+    resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
+
+    // where to put drawable resources / React Native assets, e.g. the ones you use via
+    // require('./image.png')), in release mode
+    resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
+
+    // by default the gradle tasks are skipped if none of the JS files or assets change; this means
+    // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
+    // date; if you have any other folders that you want to ignore for performance reasons (gradle
+   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
+    // for example, you might want to remove it from here.
+    inputExcludes: ["android/**", "ios/**"],
+
+   // override which node gets called and with what additional arguments
+    nodeExecutableAndArgs: ["node"],
+
+    // supply additional arguments to the packager
+    extraPackagerArgs: []
+  ]
+
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
+    enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -97,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -118,7 +118,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
  * and the benefits of using Hermes will therefore be sharply reduced.
  */
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", true);
 
 /**
  * Architectures to build native code for in debug.
@@ -133,8 +133,8 @@ android {
         applicationId "com.drip"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.2102.28"
+        versionCode 9
+        versionName "1.2404.17"
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a"
         }
@@ -143,17 +143,17 @@ android {
     }
     signingConfigs {
 	    debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
+            storePassword "Pass@123"
+            keyAlias "android_keystore"
+            keyPassword "Pass@123"
         }
         release {
-            if (project.hasProperty('DRIP_RELEASE_STORE_FILE')) {
-                storeFile file(DRIP_RELEASE_STORE_FILE)
-                storePassword DRIP_RELEASE_STORE_PASSWORD
-                keyAlias DRIP_RELEASE_KEY_ALIAS
-                keyPassword DRIP_RELEASE_KEY_PASSWORD
+          /*  if (project.hasProperty('DRIP_RELEASE_STORE_FILE'))*/ {
+                storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
+                storePassword "Pass@123"
+                keyAlias "android_keystore"
+                keyPassword "Pass@123"
             }
         }
     }
@@ -167,7 +167,7 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.debug
             if (nativeArchitectures) {
                 ndk {
                     abiFilters nativeArchitectures.split(',')
@@ -177,7 +177,8 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
@@ -190,6 +191,7 @@ android {
         pickFirst "lib/x86/libc++_shared.so"
         pickFirst "lib/x86_64/libc++_shared.so"
     }
+
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -246,3 +248,9 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+// Declare dependency between bundleReleaseJsAndAssets and compileReleaseAidl tasks
+/*
+tasks.named("bundleReleaseJsAndAssets") {
+    dependsOn(":react-native-async-storage_async-storage:compileReleaseAidl")
+}*/

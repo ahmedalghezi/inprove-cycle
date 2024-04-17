@@ -2,12 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.2404.16
+
+- 'Login implementation and App language changes'
+- 'optimize post request for login  - use axios api instead of fetch api'
+- 'import Checkbox component from expo  - ensures ios compatibility'
+- 'Changes to labels of the notifications'
+- 'implementation of import and export data'
+- 'implement login and forgot password pages'
+- 'remove login page if no local app password is set     -> necessary for developing purposes'
+- 'fix: app-wrapper.js     - remove checkIsDbEncrypted function from       useEffect, because it does not exist anymore'
+- 'feat: app entry point app-wrapper.js     - remove unnecessary import statement     - change default value for isDbEncrypted to true, so        the user is always navigated to the login page upon        starting the app     - remove checkIsDbEncrypted function, because we        do not need to check for a local password     - adjust function passed to restartApp prop. it is        sufficient to just check the current status of        isDbEncrypted'
+- 'style: email entry field on login page     - make entry visible     - remove autoCapitalization'
+- 'complete initial commit'
+- 'delete gitattributes file'
+- 'initial commit'
+- 'implemented lfs for large files'
+- 'initial commit'
+
+## v1.2404.17
+
+-
+
 ## v1.2102.28
 
 ### Changes
+
 - Temperature range is now between 35 - 39°C and its default values are now set to 35.5 - 37.5°C
 
 ### Fixed
+
 - Blocks invalid input of temperature value
 - Error message for incorrect password on login screen
 - Phase text on home screen for last fertile day
