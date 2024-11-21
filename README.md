@@ -8,10 +8,10 @@ Find more information on [our website](https://dripapp.org/).
      height="55">](https://dripapp.org/release/8.apk)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.drip/)
+     height="80">](https://f-droid.org/packages/info.inprov.drip/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=com.drip)
+     height="80">](https://play.google.com/store/apps/details?id=info.inprov.drip)
 
 The app is built in React Native and currently developed for Android.
 

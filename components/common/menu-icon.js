@@ -5,11 +5,10 @@ import iconConfig from '../../selection.json'
 
 import { Colors, Sizes } from '../../styles'
 
-const Icon = createIconSetFromIcoMoon(iconConfig, '', 'Menu')
+const Icon = createIconSetFromIcoMoon(iconConfig, '', 'Menu' )
 
 const MenuIcon = ({ isActive, name }) => {
-  const color = isActive ? Colors.greyDark : Colors.grey
-
+  const color = isActive ? Colors.greyDark : Colors.grey;
   return <Icon name={name} size={Sizes.icon} color={color} />
 }
 

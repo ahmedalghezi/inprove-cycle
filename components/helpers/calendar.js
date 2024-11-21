@@ -25,7 +25,7 @@ export const toCalFormat = (bleedingDaysSortedByDate) => {
   }, {})
 }
 
-export const predictionToCalFormat = (predictedDays) => {
+/*export const predictionToCalFormat = (predictedDays) => {
   if (!predictedDays.length) return {}
   const todayDateString = LocalDate.now().toString()
   const middleIndex = (predictedDays[0].length - 1) / 2
@@ -48,7 +48,7 @@ export const predictionToCalFormat = (predictedDays) => {
     }, acc)
     return acc
   }, {})
-}
+}*/
 
 export const todayToCalFormat = () => {
   const todayDateString = LocalDate.now().toString()
@@ -72,7 +72,7 @@ const styles = {
 export const calendarTheme = {
   calendarBackground: Colors.turquoiseLight,
   dayTextColor: Colors.greyDark,
-  monthTextColor: Colors.purple,
+  monthTextColor: '#003366',
   textDayFontFamily: Fonts.main,
   textMonthFontFamily: Fonts.bold,
   textMonthFontWeight: 'bold',

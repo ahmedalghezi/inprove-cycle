@@ -31,10 +31,9 @@ export default function AppWrapper() {
 const checkLoginStatus = async () => {
   try {
     const response = await fetch('https://inprove-sport.info/reg/isLoggedIn');
-        const data = await response.json();
+    const data = await response.json();
 
-   // const data = { res: 'no' }; // This line simulates the server response for testing
-    console.log('checkLoginStatus data:', data);
+  // const data = { res: 'no' }; // This line simulates the server response for testing
 
     if (data.res === 'no') {
       setIsLoggedIn(false);

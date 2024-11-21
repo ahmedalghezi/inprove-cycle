@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   symptomName: {
     paddingTop: Sizes.tiny,
-    color: Colors.purple,
+    color: Colors.darkBlue,
     fontSize: Sizes.base,
     lineHeight: Sizes.base,
   },

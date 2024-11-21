@@ -24,7 +24,7 @@ const symptomValues = {
     shouldExclude: false,
   },
   pain: {
-    valuesToSelect: ['cramps'],
+    valuesToSelect: ['Krämpfe'],
     shouldExclude: false,
   },
   mood: {

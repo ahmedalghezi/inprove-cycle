@@ -14,14 +14,14 @@ import { TEMP_MAX, TEMP_MIN } from '../../config'
 import computeNfpValue from '../../lib/nfp-mucus'
 
 const bleedingLabels = labels.bleeding.labels
-const cervixLabels = labels.cervix
-const contraceptiveLabels = labels.contraceptives.categories
-const intensityLabels = labels.intensity
+/*const cervixLabels = labels.cervix
+const contraceptiveLabels = labels.contraceptives.categories*/
+/*const intensityLabels = labels.intensity*/
 const moodLabels = labels.mood.categories
-const mucusLabels = labels.mucus
+/*const mucusLabels = labels.mucus*/
 const noteDescription = labels.noteExplainer
 const painLabels = labels.pain.categories
-const sexLabels = labels.sex.categories
+/*const sexLabels = labels.sex.categories*/
 const temperatureLabels = labels.temperature
 
 const minutes = ChronoUnit.MINUTES
@@ -57,7 +57,7 @@ export const blank = {
     exclude: false,
     value: null,
   },
-  cervix: {
+ /* cervix: {
     exclude: false,
     firmness: null,
     opening: null,
@@ -65,7 +65,7 @@ export const blank = {
   },
   desire: {
     value: null,
-  },
+  },*/
   mood: {
     happy: null,
     sad: null,
@@ -79,12 +79,12 @@ export const blank = {
     other: null,
     note: null,
   },
-  mucus: {
+ /* mucus: {
     exclude: false,
     feeling: null,
     texture: null,
     value: null,
-  },
+  },*/
   note: {
     value: null,
   },
@@ -99,7 +99,7 @@ export const blank = {
     other: null,
     note: null,
   },
-  sex: {
+/*  sex: {
     solo: null,
     partner: null,
     condom: null,
@@ -112,7 +112,7 @@ export const blank = {
     none: null,
     other: null,
     note: null,
-  },
+  },*/
   temperature: {
     exclude: false,
     note: null,
@@ -134,7 +134,7 @@ export const symtomPage = {
       },
     ],
   },
-  cervix: {
+ /* cervix: {
     excludeText: cervixLabels.excludeExplainer,
     note: null,
     selectBoxGroups: null,
@@ -184,7 +184,7 @@ export const symtomPage = {
         title: mucusLabels.texture.explainer,
       },
     ],
-  },
+  },*/
   mood: {
     excludeText: null,
     note: null,
@@ -215,7 +215,7 @@ export const symtomPage = {
     ],
     selectTabGroups: null,
   },
-  sex: {
+  /*sex: {
     excludeText: null,
     note: null,
     selectBoxGroups: [
@@ -231,7 +231,7 @@ export const symtomPage = {
       },
     ],
     selectTabGroups: null,
-  },
+  },*/
   temperature: {
     excludeText: temperatureLabels.exclude.explainer,
     note: temperatureLabels.note.explainer,
@@ -249,7 +249,7 @@ export const save = {
 
     saveSymptom('bleeding', date, valuesToSave)
   },
-  cervix: (data, date, shouldDeleteData) => {
+ /* cervix: (data, date, shouldDeleteData) => {
     const { opening, firmness, position, exclude } = data
     const isDataEntered = ['opening', 'firmness', 'position'].some((value) =>
       isNumber(data[value])
@@ -266,11 +266,11 @@ export const save = {
     const valuesToSave = shouldDeleteData || !isNumber(value) ? null : { value }
 
     saveSymptom('desire', date, valuesToSave)
-  },
+  },*/
   mood: (data, date, shouldDeleteData) => {
     saveBoxSymptom(data, date, shouldDeleteData, 'mood')
   },
-  mucus: (data, date, shouldDeleteData) => {
+  /*mucus: (data, date, shouldDeleteData) => {
     const { feeling, texture, exclude } = data
     const isDataEntered = ['feeling', 'texture'].some((value) =>
       isNumber(data[value])
@@ -286,7 +286,7 @@ export const save = {
           }
 
     saveSymptom('mucus', date, valuesToSave)
-  },
+  },*/
   note: (data, date, shouldDeleteData) => {
     const { value } = data
     const isValidData = value !== null && value !== ''
@@ -297,9 +297,9 @@ export const save = {
   pain: (data, date, shouldDeleteData) => {
     saveBoxSymptom(data, date, shouldDeleteData, 'pain')
   },
-  sex: (data, date, shouldDeleteData) => {
+ /* sex: (data, date, shouldDeleteData) => {
     saveBoxSymptom(data, date, shouldDeleteData, 'sex')
-  },
+  },*/
   temperature: (data, date, shouldDeleteData) => {
     const { exclude, note, time, value } = data
     const valuesToSave = {
@@ -343,7 +343,7 @@ const label = {
       return temperatureLabel
     }
   },
-  mucus: (mucus) => {
+  /*mucus: (mucus) => {
     const filledCategories = ['feeling', 'texture'].filter((c) =>
       isNumber(mucus[c])
     )
@@ -379,14 +379,14 @@ const label = {
     if (cervix.exclude) label = `(${label})`
 
     return label
-  },
+  },*/
   note: (note) => note.value,
   desire: ({ value }) => {
     if (isNumber(value)) {
       return intensityLabels[value]
     }
   },
-  sex: (sex) => {
+ /* sex: (sex) => {
     sex = mapRealmObjToJsObj(sex)
     const sexLabel = []
     if (sex && Object.values({ ...sex }).some((val) => val)) {
@@ -404,7 +404,7 @@ const label = {
       })
       return sexLabel.join(', ')
     }
-  },
+  },*/
   pain: (pain) => {
     pain = mapRealmObjToJsObj(pain)
     const painLabel = []

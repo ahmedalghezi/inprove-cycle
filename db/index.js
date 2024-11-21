@@ -10,7 +10,57 @@ let db
 let checkIsMensesStart
 let getMensesDaysRightAfter
 
+//export async function openDb(hash) {
+//  try {
+//    const realmConfig = {};
+//    if (hash) {
+//      realmConfig.encryptionKey = hashToInt8Array(hash);
+//    }
+//
+//    // Perform migrations if necessary
+//    let tempConnection;
+//    try {
+//      tempConnection = await Realm.open(realmConfig);
+//    } catch (err) {
+//      const isErrorDecrypting = err.toString().includes('decrypt');
+//      const isErrorMnemonic = err.toString().includes('Invalid mnemonic');
+//      // Tried to open without password, but is encrypted or incorrect pwd
+//      if (isErrorMnemonic) return false;
+//      // Cannot decrypt db with given pwd
+//      if (hash && isErrorDecrypting) return false;
+//
+//      throw err;
+//    }
+//
+//    let nextSchemaIndex = Realm.schemaVersion(Realm.defaultPath);
+//    tempConnection.close();
+//    while (nextSchemaIndex < schemas.length - 1) {
+//      const tempConfig = Object.assign(realmConfig, schemas[nextSchemaIndex++]);
+//      const migratedRealm = new Realm(tempConfig);
+//      migratedRealm.close();
+//    }
+//
+//    // Open the Realm with the latest schema
+//    realmConfig.schema = schemas[schemas.length - 1];
+//    const connection = await Realm.open(
+//      Object.assign(realmConfig, schemas[schemas.length - 1])
+//    );
+//
+//    db = connection;
+//    const cycle = cycleModule();
+//    checkIsMensesStart = cycle.isMensesStart;
+//    getMensesDaysRightAfter = cycle.getMensesDaysRightAfter;
+//    return true;
+//
+//  } catch (err) {
+//    console.error("Error opening the database:", err);
+//    return false; // Return false or handle the error as needed
+//  }
+//}
+
+
 export async function openDb(hash) {
+
   const realmConfig = {}
   if (hash) {
     realmConfig.encryptionKey = hashToInt8Array(hash)
@@ -50,6 +100,7 @@ export async function openDb(hash) {
   const cycle = cycleModule()
   checkIsMensesStart = cycle.isMensesStart
   getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
+//  console.log("getMensesDaysRightAfter",getMensesDaysRightAfter)
   return true
 }
 
@@ -62,34 +113,94 @@ export function mapRealmObjToJsObj(realmObj) {
 }
 
 export function getBleedingDaysSortedByDate() {
-  return db
-    .objects('CycleDay')
-    .filtered('bleeding != null')
-    .sorted('date', true)
-}
-export function getTemperatureDaysSortedByDate() {
-  return db
-    .objects('CycleDay')
-    .filtered('temperature != null')
-    .sorted('date', true)
+  if (!db) {
+    console.error("Database connection is not open.");
+    return [];
+  }
+
+  try {
+
+    const bleeddays = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true);
+//    console.log("bleeddays===================::::::::===================== ")
+//    conole.log(bleeddays)
+    return bleeddays
+
+
+  } catch (err) {
+    console.error("Error fetching bleeding days:", err);
+    return [];
+  }
 }
 
-export function getCycleDaysSortedByDate() {
-  const cycleDays = db.objects('CycleDay').sorted('date', true)
-  return cycleDays
+export function getTemperatureDaysSortedByDate()
+{
+  if (!db) {
+    console.error("Database connection is not open.");
+    return [];
+  }
+
+  try {
+    return db
+        .objects('CycleDay')
+        .filtered('temperature != null')
+        .sorted('date', true)
+  } catch (err) {
+    console.error("Error fetching temperature days:", err);
+    return [];
+  }
+}
+
+export function getCycleDaysSortedByDate()
+{
+  if (!db) {
+    console.error("Database connection is not open.");
+    return [];
+  }
+
+  try {
+    const cycleDays = db.objects('CycleDay').sorted('date', true)
+//      console.log("cycleDays====================::::::::===================== ")
+//      console.log(cycleDays)
+      return cycleDays
+  } catch (err) {
+    console.error("Error fetching sorted cycle days:", err);
+    return [];
+  }
+
 }
 
 export function getCycleStartsSortedByDate() {
-  return db
-    .objects('CycleDay')
-    .filtered('isCycleStart = true')
-    .sorted('date', true)
+
+  if (!db) {
+    console.error("Database connection is not open.");
+    return [];
+  }
+
+  try {
+    return db
+        .objects('CycleDay')
+        .filtered('isCycleStart = true')
+        .sorted('date', true)
+  } catch (err) {
+    console.error("Error fetching sorted cycle start days:", err);
+    return [];
+  }
 }
+
+
+
 export function saveSymptom(symptom, date, val) {
   let cycleDay = getCycleDay(date)
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//  console.log("cycleDay : ", cycleDay)
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
   if (!cycleDay) cycleDay = createCycleDay(date)
 
-  db.write(() => {
+   db.write(() => {
     if (symptom === 'bleeding') {
       const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
       maybeSetNewCycleStart({
@@ -98,21 +209,56 @@ export function saveSymptom(symptom, date, val) {
         mensesDaysAfter,
         checkIsMensesStart,
       })
-    } else {
+//      console.log("mensesDaysAfter in saveSymptom : ", mensesDaysAfter)
+//      console.log("cycleDay in saveSymptom : ", cycleDay)
+
+       const mergedMensesDays = [...mensesDaysAfter];
+       mergedMensesDays.push(cycleDay);
+      // Step 1: Create a hash map of mensesDaysAfter for quick lookup by date
+          const mensesDaysMap = mergedMensesDays.reduce((map, day) => {
+            map[day.date] = day.isCycleStart;
+            return map;
+          }, {});
+
+          // Step 2: Update bleedingDaysSortedByDate based on mensesDaysMap
+          getBleedingDaysSortedByDate().forEach(day => {
+            if (mensesDaysMap.hasOwnProperty(day.date)) {
+              day.isCycleStart = mensesDaysMap[day.date];
+            }
+          });
+//          console.log("Updated bleedingDaysSortedByDate in saveSymptom :", getBleedingDaysSortedByDate());
+    }
+    else {
       cycleDay[symptom] = val
+//      console.log("val in db  : ", val)
+//      console.log("cycleDay[symptom] in db : ", cycleDay[symptom])
     }
   })
 }
 
+//export function updateCycleStartsForAllCycleDays() {
+//  db.write(() => {
+//    getBleedingDaysSortedByDate().forEach((day) => {
+//      if (checkIsMensesStart(day)) {
+//        day.isCycleStart = true}
+//        }
+//
+//    )
+//  })
+//}
+
 export function updateCycleStartsForAllCycleDays() {
-  db.write(() => {
-    getBleedingDaysSortedByDate().forEach((day) => {
+   db.write(() => {
+    getBleedingDaysSortedByDate().forEach((day, index) => {
       if (checkIsMensesStart(day)) {
-        day.isCycleStart = true
+        day.isCycleStart = true;
+      } else {
+        day.isCycleStart = false;  // Ensure consistency
       }
-    })
-  })
+    });
+  });
 }
+
 
 export function createCycleDay(dateString) {
   let result

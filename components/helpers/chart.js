@@ -145,7 +145,7 @@ export function getTemperatureProps(symptomData, columnHeight, dateString) {
 }
 
 export const symptomColorMethods = {
-  mucus: (symptomData) => {
+  /*mucus: (symptomData) => {
     const { feeling, texture } = symptomData
     const colorIndex = feeling + texture
     return colorIndex
@@ -162,17 +162,17 @@ export const symptomColorMethods = {
     const colorIndex =
       solo !== null && partner !== null ? solo + 2 * partner - 1 : 0
     return colorIndex
-  },
+  },*/
   bleeding: (symptomData) => {
     const { value } = symptomData
     const colorIndex = value
     return colorIndex
   },
-  desire: (symptomData) => {
+ /* desire: (symptomData) => {
     const { value } = symptomData
     const colorIndex = value
     return colorIndex
-  },
+  },*/
   default: () => {
     //pain, mood, note
     return 0

@@ -48,7 +48,7 @@ const Home = ({ navigate, setDate }) => {
 
       {cycleDayNumber && (
         <View style={styles.line}>
-          <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
+          <AppText style={styles.redSubtitle}>{cycleDayText}</AppText>
           <AppText style={styles.turquoiseText}>
             {t('labels.home.cycleDay')}
           </AppText>
@@ -56,7 +56,7 @@ const Home = ({ navigate, setDate }) => {
       )}
       {phase && (
         <View style={styles.line}>
-          <AppText style={styles.whiteSubtitle}>
+          <AppText style={styles.redSubtitle}>
             {formatWithOrdinalSuffix(phase)}
           </AppText>
           <AppText style={styles.turquoiseText}>
@@ -71,15 +71,15 @@ const Home = ({ navigate, setDate }) => {
       </View>
       <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
         {t('labels.home.addDataForToday')}
-      </Button>
-      {phase && <Footnote colorLabel="greyLight">{statusText}</Footnote>}
+       </Button>
+      {phase && <Footnote colorLabel="black">{statusText}</Footnote>}
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.purple,
+    backgroundColor:'#E9F2ED',
     flex: 1,
   },
   contentContainer: {
@@ -94,17 +94,17 @@ const styles = StyleSheet.create({
     marginTop: Spacing.small,
   },
   title: {
-    color: Colors.purpleLight,
+    color: '#4B0082',
     fontFamily: Fonts.bold,
     fontSize: Sizes.huge,
     marginVertical: Spacing.small,
   },
   turquoiseText: {
-    color: Colors.turquoise,
+    color: '#004d4d',
     fontSize: Sizes.subtitle,
   },
-  whiteSubtitle: {
-    color: 'white',
+  redSubtitle: {
+    color: '#ED1C24',
     fontSize: Sizes.subtitle,
   },
 })

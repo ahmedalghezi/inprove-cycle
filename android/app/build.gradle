@@ -1,6 +1,8 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+
+def useIntlJsc = false
 /*
 
 *
@@ -78,11 +80,13 @@ import com.android.build.OutputFile
 
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+    enableHermes: false,// clean and rebuild if changing
+    //enableVmCleanup: false,
 ]
 
+apply from: "../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -126,29 +130,30 @@ def enableHermes = project.ext.react.get("enableHermes", true);
 def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitectures")
 
 android {
+   namespace "info.inprov.drip"
     ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.drip"
+        applicationId "info.inprov.drip"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "1.2404.17"
+        versionCode 16
+        versionName "1.2404.19"
         ndk {
-            abiFilters "armeabi-v7a", "x86", "arm64-v8a"
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
-	    debug {
+	 /*   debug {
             storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
             storePassword "Pass@123"
             keyAlias "android_keystore"
             keyPassword "Pass@123"
         }
-        release {
+        */release {
           /*  if (project.hasProperty('DRIP_RELEASE_STORE_FILE'))*/ {
                 storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
                 storePassword "Pass@123"
@@ -214,12 +219,18 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    implementation "com.facebook.react:react-native:+"
+    //implementation 'com.facebook.react:react-native:0.70.0'
+    implementation 'com.facebook.soloader:soloader:0.9.0+'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation project(':react-native-vector-icons')
+    //implementation "com.github.dieam:react-native-push-notification:7.2.3"
+    implementation project(':react-native-vector-icons')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
+
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
         exclude group:'com.squareup.okhttp3', module:'okhttp'
@@ -233,7 +244,12 @@ dependencies {
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
-        implementation jscFlavor
+        //implementation jscFlavor
+        if (useIntlJsc) {
+            implementation 'org.webkit:android-jsc-intl:+'
+        } else {
+            implementation 'org.webkit:android-jsc:+'
+        }
     }
 
     androidTestImplementation('com.wix:detox:+') { transitive = true }
@@ -254,3 +270,72 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 tasks.named("bundleReleaseJsAndAssets") {
     dependsOn(":react-native-async-storage_async-storage:compileReleaseAidl")
 }*/
+
+apply plugin: 'com.google.gms.google-services'
+
+
+project.afterEvaluate {
+    tasks.named('bundleReleaseJsAndAssets').configure {
+        dependsOn ':react-native-async-storage_async-storage:compileDebugLibraryResources'
+        dependsOn ':react-native-async-storage_async-storage:mergeReleaseGeneratedProguardFiles'
+        dependsOn ':react-native-async-storage_async-storage:mergeDebugJniLibFolders'
+        dependsOn ':react-native-async-storage_async-storage:mergeDebugShaders'
+        dependsOn ':react-native-async-storage_async-storage:mergeReleaseJniLibFolders'
+        dependsOn ':react-native-async-storage_async-storage:syncReleaseLibJars'
+        dependsOn ':react-native-async-storage_async-storage:writeReleaseAarMetadata'
+        dependsOn ':react-native-async-storage_async-storage:extractReleaseAnnotations'
+        dependsOn ':react-native-async-storage_async-storage:mergeReleaseShaders'
+        dependsOn ':react-native-async-storage_async-storage:packageReleaseAssets'
+        dependsOn ':react-native-async-storage_async-storage:copyReleaseJniLibsProjectAndLocalJars'
+        dependsOn ':react-native-async-storage_async-storage:prepareReleaseArtProfile'
+        dependsOn ':react-native-async-storage_async-storage:prepareLintJarForPublish'
+        dependsOn ':react-native-async-storage_async-storage:bundleReleaseLocalLintAar'
+        dependsOn ':react-native-async-storage_async-storage:mergeReleaseConsumerProguardFiles'
+
+        dependsOn ':react-native-community_art:compileReleaseAidl'
+        dependsOn ':react-native-community_art:compileReleaseJavaWithJavac'
+        dependsOn ':react-native-community_art:compileReleaseRenderscript'
+        dependsOn ':react-native-community_art:packageReleaseResources'
+        dependsOn ':react-native-community_art:generateReleaseResValues'
+
+        dependsOn(":react-native-community_art:syncReleaseLibJars")
+        dependsOn(":react-native-community_art:writeReleaseAarMetadata")
+        dependsOn(":react-native-community_art:extractReleaseAnnotations")
+        dependsOn(":react-native-community_art:mergeReleaseGeneratedProguardFiles")
+        dependsOn(":react-native-community_art:mergeReleaseJniLibFolders")
+    }
+
+    tasks.named('processReleaseMainManifest').configure {
+        dependsOn ':app:copyReleaseBundledJs'
+    }
+
+    tasks.named('mergeReleaseJavaResource').configure {
+        dependsOn ':app:copyReleaseBundledJs'
+    }
+
+    tasks.named('configureReleaseDependencies').configure {
+        dependsOn ':app:copyReleaseBundledJs'
+    }
+
+    tasks.named('mergeReleaseNativeLibs').configure {
+        dependsOn ':app:copyReleaseBundledJs'
+    }
+}
+
+
+
+/*project.afterEvaluate {
+    tasks.named('bundleReleaseJsAndAssets').configure {
+        // Dynamically add all task outputs from subprojects as dependencies
+        project.subprojects.each { subProject ->
+            subProject.tasks.each { subTask ->
+                dependsOn(subTask)
+            }
+        }
+    }
+}*/
+
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+}

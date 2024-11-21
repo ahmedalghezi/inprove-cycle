@@ -2,7 +2,7 @@ export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
 
 export const bleeding = {
-  labels: ['Keine','spotting', 'Leicht', 'Mittel', 'Stark'],
+  labels: ['spotting', 'Leicht', 'Mittel', 'Stark'],
   heaviness: {
     header: "Heaviness",
     explainer: "Wie stark ist deine Blutung / Periode heute?",

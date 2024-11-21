@@ -7,7 +7,7 @@ import { getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {
   calendarTheme,
-  predictionToCalFormat,
+  //predictionToCalFormat,
   toCalFormat,
   todayToCalFormat,
 } from './helpers/calendar'
@@ -25,7 +25,7 @@ const CalendarView = ({ setDate, navigate }) => {
     {},
     todayToCalFormat(),
     toCalFormat(bleedingDays),
-    predictionToCalFormat(predictedMenses)
+    //predictionToCalFormat(predictedMenses)
   )
 
   return (

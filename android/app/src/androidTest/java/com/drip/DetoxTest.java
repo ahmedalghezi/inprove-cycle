@@ -1,4 +1,4 @@
-package com.drip;
+package info.inprov.drip;
 
 import com.wix.detox.Detox;
 

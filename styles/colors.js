@@ -1,4 +1,4 @@
-const redColor = '#c3000d'
+const redColor = '#ED1C24'
 export const shadesOfRed = ['#e7999e', '#db666d', '#cf323d', '#c3000d'] // light to dark
 const violetColor = '#6a7b98'
 const shadesOfViolet = ['#e3e7ed', '#c8cfdc', '#acb8cb', '#91a0ba', '#7689a9', violetColor] // light to dark
@@ -12,16 +12,19 @@ const lightGreenColor = '#bccd67'
 const orangeColor = '#bc6642'
 const mintColor = '#6ca299'
 
+
+
 export default {
   greyDark: '#555',
   grey: '#888',
-  greyLight: '#CCC',
-  orange: '#F38337',
-  purple: '#3A2671',
+  greyLight: '#E9F2ED',
+  orange: '#ED1C24',
+  purple: '#FDB913',
   purpleLight: '#938EB2',
   turquoiseDark: '#69CBC1',
-  turquoise: '#CFECEA',
+  turquoise: '#3B3E41',
   turquoiseLight: '#E9F2ED',
+  darkBlue: '#00008B',
   iconColors: {
     'bleeding': {
       color: redColor,

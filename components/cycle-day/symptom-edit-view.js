@@ -20,8 +20,12 @@ import info from '../../i18n/en/symptom-info'
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
 const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
+//    console.log("symptom", symptom)
+//    console.log("symptomData", symptomData)
+//    console.log("blank[symptom]", blank[symptom])
   const symptomConfig = symtomPage[symptom]
   const [data, setData] = useState(symptomData ? symptomData : blank[symptom])
+//  console.log("data", data)
   const [shouldShowInfo, setShouldShowInfo] = useState(false)
   const getParsedData = () => JSON.parse(JSON.stringify(data))
   const onPressLearnMore = () => setShouldShowInfo(!shouldShowInfo)
@@ -53,6 +57,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
   }
 
   const onSave = () => {
+
     const hasDataChanged = () => {
       const initialData = symptomData ? symptomData : blank[symptom]
 
@@ -61,6 +66,11 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
 
     if (hasDataChanged()) {
       save[symptom](data, date, false)
+//      console.log(" ================================================= ");
+//      console.log("Saving Data: ", data);
+//      setData(data)
+//      console.log("Updating data", data);
+//      console.log(" ================================================= ");
       showToast(sharedLabels.dataSaved)
     }
 
@@ -78,15 +88,30 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
   }
 
   const onSelectBox = (key) => {
-    const parsedData = getParsedData()
+//    const parsedData = getParsedData()
+//    Object.assign(parsedData, { [group.key]: value })
+      const parsedData = { ...getParsedData() };
     if (key === 'other') {
-      Object.assign(parsedData, {
-        note: null,
-        [key]: !data[key],
-      })
-    } else {
-      Object.assign(parsedData, { [key]: !data[key] })
+//      console.log("onSelectBox Key :", key)
+//      console.log("!data[key] :", !data[key])
+      parsedData.note = null; // Reset note
+      parsedData[key] = !data[key];
+//      Object.assign(parsedData, {
+//        note: null,
+//        [key]: !data[key],
+//      })
     }
+    else
+    {
+//        console.log("onSelectBox Key :", key)
+//        console.log("!data[key] :", !data[key])
+//        console.log("data[key] :", data[key])
+        parsedData[key] = !data[key];
+
+//            Object.assign(parsedData, { [key]: !data[key] })
+
+    }
+
 
     setData(parsedData)
   }
@@ -101,7 +126,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
 
   const onSelectTab = (group, value) => {
     const parsedData = getParsedData()
-
+//    console.log("onSelectTab")
     Object.assign(parsedData, { [group.key]: value })
 
     setData(parsedData)
@@ -211,8 +236,8 @@ SymptomEditView.propTypes = {
 const styles = StyleSheet.create({
   buttonsContainer: {
     ...Containers.rowContainer,
-    paddingHorizontal: Spacing.base,
     paddingBottom: Spacing.base,
+    width: '100%'
   },
   input: {
     height: Sizes.base * 5,

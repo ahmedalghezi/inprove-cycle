@@ -26,10 +26,11 @@ const SymptomCell = ({
   if (shouldDrawDot) {
     const styleSymptom = Colors.iconColors[symptom]
     const symptomColor = styleSymptom.shades[symptomValue]
-    const isMucusOrCervix = symptom === 'mucus' || symptom === 'cervix'
-    const backgroundColor =
-      isMucusOrCervix && !isSymptomDataComplete ? 'white' : symptomColor
-    const borderWidth = isMucusOrCervix && !isSymptomDataComplete ? 2 : 0
+    //const isMucusOrCervix = symptom === 'mucus' || symptom === 'cervix'
+   /* const backgroundColor =
+      isMucusOrCervix && !isSymptomDataComplete ? 'white' : symptomColor*/
+    const backgroundColor = symptomColor
+    const borderWidth = 0
     const borderColor = symptomColor
     styleDot = [styles.dot, { backgroundColor, borderColor, borderWidth }]
   }
