@@ -8,7 +8,9 @@
 module.exports = {
   project: {
     ios: {},
-    android: {},
+    android: {
+        packageName: 'info.inprov.drip',
+    },
   },
   assets: ['./assets/fonts'],
 };

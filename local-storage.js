@@ -1,4 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+/*import AsyncStorage from '@react-native-community/async-storage'*/
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Observable from 'obv'
 import { TEMP_SCALE_MIN, TEMP_SCALE_MAX, TEMP_SCALE_UNITS } from './config'
 

@@ -9,7 +9,7 @@ import Segment from './common/segment';
 import Button from './common/button';
 import Header from './header';
 import ConfirmWithPassword from './settings/common/confirm-with-password';
-import Logo from '../assets/inprove_logo_transparent1.png';
+/*import Logo from '../assets/inprove_logo_transparent1.jpg';*/
 import { Image } from 'react-native';
 
 import { saveEncryptionFlag } from '../local-storage';
@@ -18,6 +18,8 @@ import { passwordPrompt as labels, shared } from '../i18n/en/labels';
 import { Containers, Spacing } from '../styles';
 
 const cancelButton = { text: shared.cancel, style: 'cancel' };
+const logo = require('./assets/inprove_logo_transparent1.jpg');
+
 
 const PasswordPrompt = ({ enableShowApp }) => {
   const [eMail, setEmail] = useState('');

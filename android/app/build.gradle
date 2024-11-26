@@ -1,136 +1,47 @@
 apply plugin: "com.android.application"
-
+apply plugin: "com.facebook.react"
 import com.android.build.OutputFile
 
 def useIntlJsc = false
-/*
-
-*
- * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
- * and bundleReleaseJsAndAssets).
- * These basically call `react-native bundle` with the correct arguments during the Android build
- * cycle. By default, bundleDebugJsAndAssets is skipped, as in debug/dev mode we prefer to load the
- * bundle directly from the development server. Below you can see all the possible configurations
- * and their defaults. If you decide to add a configuration block, make sure to add it before the
- * `apply from: "../../node_modules/react-native/react.gradle"` line.
- **/
-  project.ext.react = [
-   // the name of the generated asset file containing your JS bundle
-  bundleAssetName: "index.android.bundle",
-
-    // the entry file for bundle generation. If none specified and
-   // "index.android.js" exists, it will be used. Otherwise "index.js" is
-    // default. Can be overridden with ENTRY_FILE environment variable.
-    entryFile: "index.android.js",
-
-    // https://reactnative.dev/docs/performance#enable-the-ram-format
-   bundleCommand: "ram-bundle",
-
-    // whether to bundle JS and assets in debug mode
-    bundleInDebug: false,
-
-    // whether to bundle JS and assets in release mode
-    bundleInRelease: true,
-
-    // whether to bundle JS and assets in another build variant (if configured).
-    // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
-    // The configuration property can be in the following formats
-    //         'bundleIn${productFlavor}${buildType}'
-    //         'bundleIn${buildType}'
-    // bundleInFreeDebug: true,
-    // bundleInPaidRelease: true,
-   // bundleInBeta: true,
-
-    // whether to disable dev mode in custom build variants (by default only disabled in release)
-    // for example: to disable dev mode in the staging build type (if configured)
-   devDisabledInStaging: true,
-    // The configuration property can be in the following formats
-    //         'devDisabledIn${productFlavor}${buildType}'
-    //         'devDisabledIn${buildType}'
-
-    // the root of your project, i.e. where "package.json" lives
-    root: "../../",
-
-    // where to put the JS bundle asset in debug mode
-    jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
-
-    // where to put the JS bundle asset in release mode
-    jsBundleDirRelease: "$buildDir/intermediates/assets/release",
-    // where to put drawable resources / React Native assets, e.g. the ones you use via
-    // require('./image.png')), in debug mode
-    resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
-
-    // where to put drawable resources / React Native assets, e.g. the ones you use via
-    // require('./image.png')), in release mode
-    resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
-
-    // by default the gradle tasks are skipped if none of the JS files or assets change; this means
-    // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
-    // date; if you have any other folders that you want to ignore for performance reasons (gradle
-   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
-    // for example, you might want to remove it from here.
-    inputExcludes: ["android/**", "ios/**"],
-
-   // override which node gets called and with what additional arguments
-    nodeExecutableAndArgs: ["node"],
-
-    // supply additional arguments to the packager
-    extraPackagerArgs: []
-  ]
-
 
 project.ext.react = [
-    enableHermes: false,// clean and rebuild if changing
-    //enableVmCleanup: false,
+        // the name of the generated asset file containing your JS bundle
+        bundleAssetName: "index.android.bundle",
+        entryFile: "index.js",
+        bundleCommand: "ram-bundle",
+        bundleInDebug: false,
+        bundleInRelease: true,
+        devDisabledInStaging: true,
+        root: "../../",
+        jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
+        jsBundleDirRelease: "$buildDir/intermediates/assets/release",
+        resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
+        resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
+        inputExcludes: ["android/**", "ios/**"],
+        nodeExecutableAndArgs: ["node"],
+        extraPackagerArgs: [],
+        enableHermes: false // clean and rebuild if changing
 ]
 
-apply from: "../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"
-apply from: "../../node_modules/react-native/react.gradle"
+/*apply from: "../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"*/
+
+def nativeModules = file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+if (nativeModules.exists()) {
+    apply from: nativeModules
+}
+/*apply from: "../../node_modules/react-native/react.gradle"*/
+
+
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 
-/**
- * Set this to true to create two separate APKs instead of one:
- *   - An APK that only works on ARM devices
- *   - An APK that only works on x86 devices
- * The advantage is the size of the APK is reduced by about 4MB.
- * Upload all the APKs to the Play Store and people will download
- * the correct one based on the CPU architecture of their device.
- */
 def enableSeparateBuildPerCPUArchitecture = false
-
-/**
- * Run Proguard to shrink the Java bytecode in release builds.
- */
 def enableProguardInReleaseBuilds = true
-
-/**
- * The preferred build flavor of JavaScriptCore.
- *
- * For example, to use the international variant, you can use:
- * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
- *
- * The international variant includes ICU i18n library and necessary data
- * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
- * give correct results when using with locales other than en-US.  Note that
- * this variant is about 6MiB larger per architecture than default.
- */
 def jscFlavor = 'org.webkit:android-jsc:+'
-/**
- * Whether to enable the Hermes VM.
- *
- * This should be set on project.ext.react and that value will be read here. If it is not set
- * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
- * and the benefits of using Hermes will therefore be sharply reduced.
- */
-def enableHermes = project.ext.react.get("enableHermes", true);
-
-/**
- * Architectures to build native code for in debug.
- */
+def enableHermes = project.ext.react.get("enableHermes", true)
 def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitectures")
 
 android {
-   namespace "info.inprov.drip"
+    namespace "info.inprov.drip"
     ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -143,94 +54,70 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
-        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
-	 /*   debug {
+        release {
             storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
             storePassword "Pass@123"
             keyAlias "android_keystore"
             keyPassword "Pass@123"
-        }
-        */release {
-          /*  if (project.hasProperty('DRIP_RELEASE_STORE_FILE'))*/ {
-                storeFile file("C:/Users/chait/dripNew/2024/chaithrakb.jks")
-                storePassword "Pass@123"
-                keyAlias "android_keystore"
-                keyPassword "Pass@123"
-            }
         }
     }
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk false
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
     buildTypes {
         debug {
-            //signingConfig signingConfigs.debug
             if (nativeArchitectures) {
                 ndk {
                     abiFilters nativeArchitectures.split(',')
                 }
-            }            
+            }
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            //signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
         }
     }
-
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"
         pickFirst "lib/arm64-v8a/libc++_shared.so"
         pickFirst "lib/x86/libc++_shared.so"
         pickFirst "lib/x86_64/libc++_shared.so"
     }
-
-
-    // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // https://developer.android.com/studio/build/configure-apk-splits.html
-            // Example: versionCode 1 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
             def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+            if (abi != null) {
+                output.versionCodeOverride = defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
         }
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    //noinspection GradleDynamicVersion
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation "com.facebook.react:react-native:+"
-    //implementation 'com.facebook.react:react-native:0.70.0'
     implementation 'com.facebook.soloader:soloader:0.9.0+'
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation project(':react-native-vector-icons')
-    //implementation "com.github.dieam:react-native-push-notification:7.2.3"
-    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-share')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:'com.facebook.fbjni'
+        exclude group:'com.facebook.fbjni'
     }
-
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
         exclude group:'com.squareup.okhttp3', module:'okhttp'
@@ -238,104 +125,67 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
-        //implementation jscFlavor
         if (useIntlJsc) {
             implementation 'org.webkit:android-jsc-intl:+'
         } else {
             implementation 'org.webkit:android-jsc:+'
         }
     }
-
     androidTestImplementation('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
 }
 
-// Run this once to be able to run the application with BUCK
-// puts all compile dependencies into folder libs for BUCK to use
-task copyDownloadableDepsToLibs(type: Copy) {
-    from configurations.implementation
-    into 'libs'
-}
-
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
-// Declare dependency between bundleReleaseJsAndAssets and compileReleaseAidl tasks
-/*
-tasks.named("bundleReleaseJsAndAssets") {
-    dependsOn(":react-native-async-storage_async-storage:compileReleaseAidl")
-}*/
-
-apply plugin: 'com.google.gms.google-services'
-
-
-project.afterEvaluate {
+// Ensure dependencies between tasks are dynamically managed
+/*project.afterEvaluate {
     tasks.named('bundleReleaseJsAndAssets').configure {
-        dependsOn ':react-native-async-storage_async-storage:compileDebugLibraryResources'
-        dependsOn ':react-native-async-storage_async-storage:mergeReleaseGeneratedProguardFiles'
-        dependsOn ':react-native-async-storage_async-storage:mergeDebugJniLibFolders'
-        dependsOn ':react-native-async-storage_async-storage:mergeDebugShaders'
-        dependsOn ':react-native-async-storage_async-storage:mergeReleaseJniLibFolders'
-        dependsOn ':react-native-async-storage_async-storage:syncReleaseLibJars'
-        dependsOn ':react-native-async-storage_async-storage:writeReleaseAarMetadata'
-        dependsOn ':react-native-async-storage_async-storage:extractReleaseAnnotations'
-        dependsOn ':react-native-async-storage_async-storage:mergeReleaseShaders'
-        dependsOn ':react-native-async-storage_async-storage:packageReleaseAssets'
-        dependsOn ':react-native-async-storage_async-storage:copyReleaseJniLibsProjectAndLocalJars'
-        dependsOn ':react-native-async-storage_async-storage:prepareReleaseArtProfile'
-        dependsOn ':react-native-async-storage_async-storage:prepareLintJarForPublish'
-        dependsOn ':react-native-async-storage_async-storage:bundleReleaseLocalLintAar'
-        dependsOn ':react-native-async-storage_async-storage:mergeReleaseConsumerProguardFiles'
+        dependsOn ":react-native-vector-icons:compileReleaseAidl"
+        dependsOn ":react-native-vector-icons:compileReleaseRenderscript"
+        dependsOn ":react-native-vector-icons:packageReleaseResources"
+        dependsOn ":react-native-vector-icons:generateReleaseResValues"
+        dependsOn ":react-native-vector-icons:generateReleaseBuildConfig"
+        dependsOn ":react-native-vector-icons:processReleaseManifest"
+        dependsOn ":react-native-vector-icons:writeReleaseAarMetadata"
+        dependsOn ":react-native-vector-icons:javaPreCompileRelease"
+        dependsOn ":react-native-vector-icons:generateReleaseRFile"
+        dependsOn ":react-native-vector-icons:mergeReleaseJniLibFolders"
+        dependsOn ':react-native-vector-icons:compileReleaseJavaWithJavac'
+        dependsOn ':react-native-vector-icons:syncReleaseLibJars'
+        dependsOn ':react-native-vector-icons:extractReleaseAnnotations'
+        dependsOn ':react-native-vector-icons:mergeReleaseGeneratedProguardFiles'
+        dependsOn ':react-native-vector-icons:mergeReleaseShaders'
+        dependsOn ':react-native-vector-icons:packageReleaseAssets'
+        dependsOn ':react-native-vector-icons:copyReleaseJniLibsProjectAndLocalJars'
+        dependsOn ':react-native-vector-icons:prepareReleaseArtProfile'
+        dependsOn ':react-native-vector-icons:prepareLintJarForPublish'
+        dependsOn ':react-native-vector-icons:bundleReleaseLocalLintAar'
 
-        dependsOn ':react-native-community_art:compileReleaseAidl'
-        dependsOn ':react-native-community_art:compileReleaseJavaWithJavac'
-        dependsOn ':react-native-community_art:compileReleaseRenderscript'
-        dependsOn ':react-native-community_art:packageReleaseResources'
-        dependsOn ':react-native-community_art:generateReleaseResValues'
 
-        dependsOn(":react-native-community_art:syncReleaseLibJars")
-        dependsOn(":react-native-community_art:writeReleaseAarMetadata")
-        dependsOn(":react-native-community_art:extractReleaseAnnotations")
-        dependsOn(":react-native-community_art:mergeReleaseGeneratedProguardFiles")
-        dependsOn(":react-native-community_art:mergeReleaseJniLibFolders")
+        project.subprojects.each { subProject ->
+            subProject.tasks.matching {
+                it.name.toLowerCase().contains("release")
+            }.all { task ->
+                dependsOn task
+            }
+        }
     }
-
+    tasks.named('mapReleaseSourceSetPaths').configure {
+        dependsOn ":app:bundleReleaseJsAndAssets"
+    }
     tasks.named('processReleaseMainManifest').configure {
         dependsOn ':app:copyReleaseBundledJs'
     }
 
-    tasks.named('mergeReleaseJavaResource').configure {
-        dependsOn ':app:copyReleaseBundledJs'
+    tasks.named('compressReleaseAssets').configure {
+        dependsOn tasks.named('copyReleaseBundledJs')
     }
 
-    tasks.named('configureReleaseDependencies').configure {
-        dependsOn ':app:copyReleaseBundledJs'
-    }
-
-    tasks.named('mergeReleaseNativeLibs').configure {
-        dependsOn ':app:copyReleaseBundledJs'
-    }
-}
-
-
-
-/*project.afterEvaluate {
-    tasks.named('bundleReleaseJsAndAssets').configure {
-        // Dynamically add all task outputs from subprojects as dependencies
-        project.subprojects.each { subProject ->
-            subProject.tasks.each { subTask ->
-                dependsOn(subTask)
-            }
-        }
-    }
 }*/
 
-tasks.withType(JavaCompile).configureEach {
-    options.fork = true
-    options.forkOptions.executable = 'javac'
-}
+
+
+
